@@ -7,7 +7,7 @@
   const FIBONACCI_DAISY_COUNTS = [21, 21, 22, 23, 24, 25, 34];
 
   const phrases = ["Loves me", "Loves me not"];
-  const finalPhrases = ["LOVES ME", "LOVES ME NOT"];
+  const finalPhrases = ["loves you!!!", "loves you not :("];
 
   let root = null;
   let state = null;
@@ -26,19 +26,22 @@
   }
 
   function makePetals(count) {
-    const angleOffset = randomBetween(-8, 8);
+    const angleOffset = randomBetween(-5, 5);
+    const baseWidth = randomBetween(50, 56);
+    const baseHeight = randomBetween(150, 164);
+    const baseOverlap = randomBetween(31, 36);
 
     return Array.from({ length: count }, (_, index) => {
-      const angle = (360 / count) * index + angleOffset + randomBetween(-2.8, 2.8);
+      const angle = (360 / count) * index + angleOffset + randomBetween(-1.2, 1.2);
 
       return {
         id: `petal-${Date.now()}-${index}`,
         angle,
-        width: randomBetween(44, 60),
-        height: randomBetween(132, 172),
-        overlap: randomBetween(28, 38),
-        twist: randomBetween(-8, 8),
-        scale: randomBetween(0.92, 1.08),
+        width: baseWidth + randomBetween(-2.5, 2.5),
+        height: baseHeight + randomBetween(-6, 6),
+        overlap: baseOverlap + randomBetween(-2, 2),
+        twist: randomBetween(-4, 4),
+        scale: randomBetween(0.98, 1.02),
         plucked: false
       };
     });
@@ -89,7 +92,7 @@
       particle.style.setProperty("--delay", `${randomBetween(0, 0.28)}s`);
       root.appendChild(particle);
 
-      window.setTimeout(() => particle.remove(), 1700);
+      window.setTimeout(() => particle.remove(), 3400);
     }
   }
 
