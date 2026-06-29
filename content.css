@@ -201,7 +201,8 @@
   font-size: clamp(24px, 5vw, 42px);
   pointer-events: none;
   transform: translate(-50%, -50%);
-  animation: love-daisy-burst 2800ms cubic-bezier(0.16, 0.86, 0.22, 1) var(--delay) forwards;
+  animation: love-daisy-burst 900ms cubic-bezier(0.16, 0.86, 0.22, 1) forwards;
+  will-change: opacity, transform;
 }
 
 #love-daisy-extension-root.has-love .love-daisy-backdrop {

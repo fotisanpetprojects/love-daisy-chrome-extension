@@ -81,18 +81,26 @@
     const symbols = kind === "love"
       ? ["❤️", "💖", "💘", "💕"]
       : ["💔", "💔", "🖤", "💧"];
+    const waves = 8;
+    const particlesPerWave = 5;
 
-    for (let index = 0; index < 26; index += 1) {
-      const particle = document.createElement("span");
-      particle.className = "love-daisy-particle";
-      particle.textContent = symbols[index % symbols.length];
-      particle.style.setProperty("--x", `${randomBetween(-230, 230)}px`);
-      particle.style.setProperty("--y", `${randomBetween(-260, 80)}px`);
-      particle.style.setProperty("--rot", `${randomBetween(-70, 70)}deg`);
-      particle.style.setProperty("--delay", `${randomBetween(0, 0.28)}s`);
-      root.appendChild(particle);
+    for (let wave = 0; wave < waves; wave += 1) {
+      window.setTimeout(() => {
+        if (!root) return;
 
-      window.setTimeout(() => particle.remove(), 3400);
+        for (let index = 0; index < particlesPerWave; index += 1) {
+          const particle = document.createElement("span");
+          const symbolIndex = (wave * particlesPerWave + index) % symbols.length;
+          particle.className = "love-daisy-particle";
+          particle.textContent = symbols[symbolIndex];
+          particle.style.setProperty("--x", `${randomBetween(-230, 230)}px`);
+          particle.style.setProperty("--y", `${randomBetween(-260, 80)}px`);
+          particle.style.setProperty("--rot", `${randomBetween(-70, 70)}deg`);
+          root.appendChild(particle);
+
+          window.setTimeout(() => particle.remove(), 980);
+        }
+      }, wave * 250);
     }
   }
 
