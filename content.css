@@ -1,0 +1,280 @@
+#love-daisy-extension-root,
+#love-daisy-extension-root * {
+  box-sizing: border-box;
+}
+
+#love-daisy-extension-root {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483647;
+  color: #ffffff;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.love-daisy-backdrop {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: transparent;
+  isolation: isolate;
+  pointer-events: none;
+}
+
+.love-daisy-toolbar {
+  position: fixed;
+  top: max(16px, env(safe-area-inset-top));
+  right: max(16px, env(safe-area-inset-right));
+  display: flex;
+  gap: 8px;
+  z-index: 4;
+  pointer-events: auto;
+}
+
+.love-daisy-icon-button {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border: 2px solid rgba(255, 255, 255, 0.72);
+  border-radius: 8px;
+  background: rgba(10, 16, 18, 0.58);
+  color: #ffffff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+  cursor: pointer;
+  font: 700 25px/1 Arial, Helvetica, sans-serif;
+}
+
+.love-daisy-icon-button:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.love-daisy-stage {
+  position: relative;
+  display: grid;
+  width: min(94vw, 620px);
+  min-height: min(86vh, 620px);
+  place-items: center;
+  padding: 78px 20px 48px;
+  pointer-events: none;
+}
+
+.love-daisy-status {
+  position: absolute;
+  top: clamp(52px, 10vh, 82px);
+  left: 50%;
+  z-index: 3;
+  width: min(92vw, 560px);
+  transform: translateX(-50%);
+  color: #fff7cb;
+  font: 900 clamp(24px, 7vw, 58px)/1 "Courier New", Courier, monospace;
+  letter-spacing: 0;
+  text-align: center;
+  text-shadow:
+    0 4px 0 #231832,
+    4px 0 0 #231832,
+    -4px 0 0 #231832,
+    0 -4px 0 #231832,
+    0 8px 16px rgba(0, 0, 0, 0.48),
+    0 0 24px rgba(255, 232, 128, 0.68);
+  text-transform: uppercase;
+  word-break: keep-all;
+}
+
+.love-daisy-status.is-final {
+  animation: love-daisy-final-pop 620ms steps(4, end) both;
+}
+
+.love-daisy-flower {
+  position: relative;
+  width: clamp(280px, 56vmin, 460px);
+  height: clamp(280px, 56vmin, 460px);
+  transform: translateY(44px);
+  filter: drop-shadow(0 22px 32px rgba(0, 0, 0, 0.38));
+  pointer-events: none;
+}
+
+.love-daisy-petal-arm {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: var(--petal-z);
+  width: 0;
+  height: 0;
+  transform: rotate(var(--angle));
+  transform-origin: 0 0;
+  pointer-events: none;
+}
+
+.love-daisy-petal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: clamp(34px, 8vmin, var(--petal-width));
+  height: clamp(92px, 21vmin, var(--petal-height));
+  padding: 0;
+  border: 0;
+  border-radius: 72% 72% 48% 48%;
+  background:
+    radial-gradient(circle at 50% 17%, rgba(255, 255, 255, 0.98), rgba(255, 255, 255, 0.72) 35%, rgba(219, 233, 242, 0.94) 72%),
+    linear-gradient(90deg, rgba(198, 217, 224, 0.85), #ffffff 48%, rgba(202, 220, 226, 0.75));
+  box-shadow:
+    inset 0 -12px 16px rgba(187, 204, 205, 0.26),
+    inset 0 10px 14px rgba(255, 255, 255, 0.86),
+    0 7px 16px rgba(15, 28, 25, 0.22);
+  cursor: grab;
+  transform:
+    translate(-50%, calc(-100% + var(--petal-overlap)))
+    rotate(var(--petal-twist))
+    scale(var(--petal-scale));
+  transform-origin: 50% 100%;
+  transition: filter 130ms ease, scale 130ms ease;
+  pointer-events: auto;
+}
+
+.love-daisy-petal::after {
+  position: absolute;
+  inset: 12% 48% 18%;
+  width: 1px;
+  content: "";
+  background: rgba(211, 223, 223, 0.8);
+  box-shadow: 4px 6px 0 rgba(255, 255, 255, 0.5);
+}
+
+.love-daisy-petal:hover {
+  filter: brightness(1.09);
+}
+
+.love-daisy-petal:active {
+  cursor: grabbing;
+}
+
+.love-daisy-petal.is-plucked {
+  pointer-events: none;
+  animation: love-daisy-pluck 820ms cubic-bezier(0.2, 0.78, 0.18, 1) forwards;
+}
+
+.love-daisy-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 80;
+  display: grid;
+  width: clamp(78px, 14vmin, 106px);
+  height: clamp(78px, 14vmin, 106px);
+  place-items: center;
+  transform: translate(-50%, -50%);
+  border: 5px solid #a86e13;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 34% 30%, #ffe471 0 9%, transparent 10%),
+    radial-gradient(circle at 63% 33%, #ffcf42 0 8%, transparent 9%),
+    radial-gradient(circle at 48% 60%, #c97913 0 8%, transparent 9%),
+    radial-gradient(circle, #ffd75a, #ed9f21 62%, #a86413);
+  box-shadow:
+    inset 0 -10px 18px rgba(114, 66, 9, 0.34),
+    inset 0 8px 14px rgba(255, 255, 255, 0.34),
+    0 0 0 9px rgba(103, 87, 29, 0.08);
+}
+
+.love-daisy-center-dot {
+  width: 16%;
+  height: 16%;
+  border-radius: 50%;
+  background: #8a5111;
+  box-shadow:
+    -22px -8px 0 #b56b13,
+    18px -18px 0 #bd7417,
+    24px 12px 0 #9d5b10,
+    -16px 20px 0 #c88018,
+    0 26px 0 #91500d,
+    -2px -28px 0 #ad6412;
+}
+
+.love-daisy-particle {
+  position: fixed;
+  top: 52%;
+  left: 50%;
+  z-index: 5;
+  font-size: clamp(24px, 5vw, 42px);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  animation: love-daisy-burst 1500ms cubic-bezier(0.16, 0.86, 0.22, 1) var(--delay) forwards;
+}
+
+#love-daisy-extension-root.has-love .love-daisy-backdrop {
+  background: transparent;
+}
+
+#love-daisy-extension-root.has-heartbreak .love-daisy-backdrop {
+  background: transparent;
+}
+
+@keyframes love-daisy-pluck {
+  0% {
+    opacity: 1;
+  }
+  28% {
+    opacity: 1;
+    transform:
+      translate(-50%, calc(-100% + var(--petal-overlap) - 22px))
+      rotate(calc(var(--petal-twist) + 18deg))
+      scale(var(--petal-scale));
+  }
+  100% {
+    opacity: 0;
+    transform:
+      translate(calc(-50% + var(--fall-x)), 56vh)
+      rotate(calc(var(--petal-twist) + var(--fall-rot)))
+      scale(0.55);
+  }
+}
+
+@keyframes love-daisy-final-pop {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) scale(0.82);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+  }
+}
+
+@keyframes love-daisy-burst {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.4) rotate(0deg);
+  }
+  15% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) scale(1.18) rotate(var(--rot));
+  }
+}
+
+@media (max-width: 520px) {
+  .love-daisy-stage {
+    min-height: 100vh;
+    padding-top: 104px;
+  }
+
+  .love-daisy-flower {
+    width: clamp(268px, 82vw, 340px);
+    height: clamp(268px, 82vw, 340px);
+    transform: translateY(46px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .love-daisy-petal.is-plucked,
+  .love-daisy-status.is-final,
+  .love-daisy-particle {
+    animation-duration: 1ms;
+  }
+}

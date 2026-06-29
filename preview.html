@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Love Daisy Preview</title>
+    <link rel="stylesheet" href="./content.css">
+    <style>
+      body {
+        min-height: 100vh;
+        margin: 0;
+        background: #f3efe8;
+        color: #1f2926;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      main {
+        display: grid;
+        min-height: 100vh;
+        place-items: center;
+      }
+
+      button {
+        border: 0;
+        border-radius: 8px;
+        background: #1f2926;
+        color: #fff;
+        cursor: pointer;
+        font: 700 18px/1 Arial, Helvetica, sans-serif;
+        padding: 16px 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <button type="button" id="preview-open">Open Love Daisy</button>
+    </main>
+    <script src="./content.js"></script>
+    <script>
+      document.getElementById("preview-open").addEventListener("click", () => {
+        window.__loveDaisyPetalGame.open();
+      });
+    </script>
+  </body>
+</html>
