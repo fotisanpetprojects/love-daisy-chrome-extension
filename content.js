@@ -28,7 +28,7 @@
   function makePetals(count) {
     const angleOffset = randomBetween(-5, 5);
     const baseWidth = randomBetween(50, 56);
-    const baseHeight = randomBetween(150, 164);
+    const baseHeight = randomBetween(162, 178);
     const baseOverlap = randomBetween(31, 36);
 
     return Array.from({ length: count }, (_, index) => {
@@ -178,9 +178,7 @@
                 ></button>
               </span>
             `).join("")}
-            <div class="love-daisy-center" aria-hidden="true">
-              <span class="love-daisy-center-dot"></span>
-            </div>
+            <button class="love-daisy-center" type="button" aria-label="Restart finished daisy"></button>
           </div>
         </div>
       </div>
@@ -188,6 +186,12 @@
 
     root.querySelector('[data-action="close"]')?.addEventListener("click", removeRoot);
     root.querySelector('[data-action="restart"]')?.addEventListener("click", () => {
+      newGame();
+      renderGame();
+    });
+    root.querySelector(".love-daisy-center")?.addEventListener("click", (event) => {
+      event.preventDefault();
+      if (!state?.isComplete) return;
       newGame();
       renderGame();
     });
