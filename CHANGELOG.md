@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.5
+
+- Added extension icon assets for Chrome toolbar and extension management surfaces.
+- Updated the manifest to use the daisy icon instead of Chrome's generated fallback letter icon.
+
 ## 0.1.2
 
 - Updated the final result copy to `loves you!!!` and `loves you not :(`.
